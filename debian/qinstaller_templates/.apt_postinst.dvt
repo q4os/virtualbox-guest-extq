@@ -12,4 +12,4 @@ depmod -a && true
 # service virtualbox-guest-utils force-reload && true
 
 # echo "Runing VDM reset daemon .."
-# dash /opt/program_files/q4os-vboxgutils/daemon/dm_reset_d.sh && true
+# dash /opt/program_files/virtualbox-guest-extq/daemon/dm_reset_d.sh && true

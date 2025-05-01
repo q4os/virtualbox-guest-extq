@@ -6,7 +6,7 @@ fi
 
 if [ "$QDSK_SESSION" = "plasma" ] ; then
   MSG1="<p>You have successfully installed Virtualbox guest additions.</p><p>If you want to use all Virtualbox facilities including free resizing of virtual screen, you need to reboot your computer. Please save opened documents and reboot as soon as possible for display server to load fresh VirtualBox guest video drivers.</p><p><br></p>"
-  kdialog --title "Virtualbox guest additions" --icon "/opt/program_files/q4os-vboxgutils/share/vboxgutils.png" --msgbox "$MSG1"
+  kdialog --title "Virtualbox guest additions" --icon "/opt/program_files/virtualbox-guest-extq/share/vboxgutils.png" --msgbox "$MSG1"
 elif [ "$QDSK_SESSION" = "trinity" ] ; then
   ACTION1="1" #0 .. relogin, 1 .. reboot
   # #todo: check if relogin suffices, in case of kernel headers installed match the current kernel, see 'uname -r'
@@ -20,7 +20,7 @@ elif [ "$QDSK_SESSION" = "trinity" ] ; then
     MSG1="<p>You have successfully installed Virtualbox guest additions.</p><p>If you want to use all Virtualbox facilities including free resizing of virtual screen, you need to reboot your computer. Please save opened documents and reboot as soon as possible for display server to load fresh VirtualBox guest video drivers.</p><p>Do you want to reboot just now ?</p><p><br></p>"
   fi
   
-  kdialog --title "Virtualbox guest additions" --caption "" --icon "/opt/program_files/q4os-vboxgutils/share/vboxgutils.png" --yesno "$MSG1"
+  kdialog --title "Virtualbox guest additions" --caption "" --icon "/opt/program_files/virtualbox-guest-extq/share/vboxgutils.png" --yesno "$MSG1"
   if [ "$?" != "0" ] ; then
     rm $0
     exit 0

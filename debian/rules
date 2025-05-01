@@ -11,8 +11,8 @@
 
 override_dh_install:
 	dh_install
-	mkdir debian/q4os-vboxgutils
-	cp -r filesystem/. debian/q4os-vboxgutils/
+	mkdir debian/virtualbox-guest-extq
+	cp -r filesystem/. debian/virtualbox-guest-extq/
 	dh_modify_debdir
 
 # override_dh_link:
@@ -22,5 +22,5 @@ override_dh_install:
 override_dh_builddeb:
 	dh_builddeb
 	dh_build_qinstaller
-	rm -rf ../.zout/ && mkdir ../.zout/ && mv ../*.qsi ../.zout/ && cp ../*.deb ../.zout/
+	rm -rf ../.zout/ && mkdir ../.zout/ && mv ../*.qsi ../.zout/ && mv ../*.esh ../.zout/ && cp ../*.deb ../.zout/
 	cd ../.zout/ && xqtrsetup ; xqtrdeb

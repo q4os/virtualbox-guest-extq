@@ -3,11 +3,11 @@
 # TEMPLATES_DIR_0="$TEMPLATESDIR0"
 TEMPLATES_DIR="qinstaller_templates"
 
-PK_NAME="q4os-vboxgutils"
+PK_NAME="virtualbox-guest-extq"
 APPNAME_DESC="VirtualBox Guest Additions"
 
 #-.qsi entries
-# INST_DEBS="q4os-vboxgutils"
+# INST_DEBS="virtualbox-guest-extq"
 PK_VERS="4.4-a1"
 # Q4VER_MIN="4.0"
 # Q4VER_MAX="4.9999"
@@ -29,6 +29,6 @@ DESKTOP_ENTRY="0"
 # KEYRING_ENTRY="0"
 # REG_ENTRY="0"
 # UNINSTALL_ENTRY="0"
-APP_ICON="/opt/program_files/q4os-vboxgutils/share/vboxgutils.png"
+APP_ICON="/opt/program_files/virtualbox-guest-extq/share/vboxgutils.png"
 # APP_LINK="/usr/bin/vboxadds-launcher"
 UNINST_ADPCKS="virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils"
