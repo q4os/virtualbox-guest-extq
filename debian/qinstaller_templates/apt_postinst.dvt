@@ -38,14 +38,14 @@ case "$1" in
           elif [ "$QDSTRA" = "trixie" ] ; then
             echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/q4a-q4os.gpg] http://q4os.org/qexarepo/vboxadds trixie-vboxadds-cn main' >> "$REPOFL1"
             /bin/echo -e "vboxguest\nvboxvideo\nvboxsf" > $CFGFL1
-          elif [ "$QDSTRA" = "focal" ] ; then
-            echo '##deb http://quarkos.org/quarkexa/vboxadds focal-vboxadds-cn main' >> "$REPOFL1"
-            /bin/echo -e "" > $CFGFL1
           elif [ "$QDSTRA" = "jammy" ] ; then
             echo '##deb http://quarkos.org/quarkexa/vboxadds jammy-vboxadds-cn main' >> "$REPOFL1"
             /bin/echo -e "" > $CFGFL1
           elif [ "$QDSTRA" = "noble" ] ; then
             echo '##deb http://quarkos.org/quarkexa/vboxadds noble-vboxadds-cn main' >> "$REPOFL1"
+            /bin/echo -e "" > $CFGFL1
+          elif [ "$QDSTRA" = "resolute" ] ; then
+            echo '##deb http://quarkos.org/quarkexa/vboxadds resolute-vboxadds-cn main' >> "$REPOFL1"
             /bin/echo -e "" > $CFGFL1
           else
             echo '##deb [arch=amd64] http://q4os.org/qexarepo/vboxadds <distroname>-vboxadds-cn main' >> "$REPOFL1"
