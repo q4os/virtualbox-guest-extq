@@ -37,7 +37,11 @@ elif [ "$QAPTDISTR_A" = "trixie" ] && [ "$CARCH" = "i386" ] ; then
   MSGBOX1="<p>Click OK to launch an interactive script installing Virtualbox guest additions using guest additions CD image.</p>"
   RUNSCRIPT1="1"
   VBXAD_UNAVAILABLE="1"
-elif [ "$QAPTDISTR_A" != "bullseye" ] && [ "$QAPTDISTR_A" != "bookworm" ] && [ "$QAPTDISTR_A" != "trixie" ] && [ "$QAPTDISTR_A" != "jammy" ] && [ "$QAPTDISTR_A" != "noble" ] && [ "$QAPTDISTR_A" != "resolute" ] ; then
+elif [ "$QAPTDISTR_A" = "forky" ] && [ "$CARCH" = "i386" ] ; then
+  MSGBOX1="<p>Click OK to launch an interactive script installing Virtualbox guest additions using guest additions CD image.</p>"
+  RUNSCRIPT1="1"
+  VBXAD_UNAVAILABLE="1"
+elif [ "$QAPTDISTR_A" != "bullseye" ] && [ "$QAPTDISTR_A" != "bookworm" ] && [ "$QAPTDISTR_A" != "trixie" ] && [ "$QAPTDISTR_A" != "forky" ] && [ "$QAPTDISTR_A" != "jammy" ] && [ "$QAPTDISTR_A" != "noble" ] && [ "$QAPTDISTR_A" != "resolute" ] ; then
   MSGBOX1="<p>Virtualbox guest additions is not available for this distribution.</p><p>It's possible to install Virtualbox guest additions manually using guest addidions CD image.</p><p>Exiting setup now ..</p>"
   VBXAD_UNAVAILABLE="1"
 elif [ "$CARCH" != "amd64" ] && [ "$CARCH" != "i386" ] ; then

@@ -38,6 +38,9 @@ case "$1" in
           elif [ "$QDSTRA" = "trixie" ] ; then
             echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/q4a-q4os.gpg] http://q4os.org/qexarepo/vboxadds trixie-vboxadds-cn main' >> "$REPOFL1"
             /bin/echo -e "vboxguest\nvboxvideo\nvboxsf" > $CFGFL1
+          elif [ "$QDSTRA" = "forky" ] ; then
+            echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/q4a-q4os.gpg] http://q4os.org/qexarepo/vboxadds forky-vboxadds-cn main' >> "$REPOFL1"
+            /bin/echo -e "vboxguest\nvboxvideo\nvboxsf" > $CFGFL1
           elif [ "$QDSTRA" = "jammy" ] ; then
             echo '##deb http://quarkos.org/quarkexa/vboxadds jammy-vboxadds-cn main' >> "$REPOFL1"
             /bin/echo -e "" > $CFGFL1
