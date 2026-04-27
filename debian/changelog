@@ -1,3 +1,16 @@
+virtualbox-guest-extq (1.2-a1) UNRELEASED; urgency=medium
+
+  * Prepare to replace .list with .sources
+  * Add repositories signatures
+  * Add Resolute, remove Focal support
+  * Move to debhelper 13 compatibility level
+  * Add Forky support
+  * Move to deb822 sources.list format for newer editions
+  * Fix version
+  * Fix condition to select edition
+
+ -- Q4OS Team <devteam@q4os.org>  Mon, 27 Apr 2026 11:45:35 +0200
+
 virtualbox-guest-extq (1.1-a1) UNRELEASED; urgency=medium
 
   * Initial release
