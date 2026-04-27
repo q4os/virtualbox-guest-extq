@@ -8,7 +8,7 @@ APPNAME_DESC="VirtualBox Guest Additions"
 
 #-.qsi entries
 # INST_DEBS="virtualbox-guest-extq"
-PK_VERS="4.4-a1"
+PK_VERS="1.2-a1"
 # Q4VER_MIN="4.0"
 # Q4VER_MAX="4.9999"
 # DSTR_BASE="debian;ubuntu"
