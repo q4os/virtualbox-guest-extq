@@ -1,0 +1,13 @@
+Explanation: pin older vbox packages as newer cause the bug causinglogout freeze
+Explanation: ---
+Package: virtualbox-guest-dkms
+Pin: version 4.3.18*
+Pin-Priority: 1001
+
+Package: virtualbox-guest-utils
+Pin: version 4.3.18*
+Pin-Priority: 1001
+
+Package: virtualbox-guest-x11
+Pin: version 4.3.18*
+Pin-Priority: 1001

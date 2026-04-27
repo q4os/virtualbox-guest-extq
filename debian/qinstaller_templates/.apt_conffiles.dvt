@@ -1,0 +1,2 @@
+/etc/apt/sources.list.d/50_q4vboxadds.list
+/etc/modules-load.d/vboxq4.conf

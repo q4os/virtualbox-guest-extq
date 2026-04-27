@@ -1,0 +1,62 @@
+#!/bin/sh
+
+if [ "$APPSETUP2_NONITERACTIVE" = "1" ] ; then
+  exit 0
+fi
+
+if [ "$QDSK_SESSION" = "plasma" ] ; then
+  MSG1="<p>You have successfully installed Virtualbox guest additions.</p><p>If you want to use all Virtualbox facilities including free resizing of virtual screen, you need to reboot your computer. Please save opened documents and reboot as soon as possible for display server to load fresh VirtualBox guest video drivers.</p><p><br></p>"
+  kdialog --title "Virtualbox guest additions" --icon "/opt/program_files/q4os-vboxgutils/share/vboxgutils.png" --msgbox "$MSG1"
+elif [ "$QDSK_SESSION" = "trinity" ] ; then
+  ACTION1="1" #0 .. relogin, 1 .. reboot
+  # #todo: check if relogin suffices, in case of kernel headers installed match the current kernel, see 'uname -r'
+  # if [ kernel headers installed match the current kernel ] ; then
+  #   ACTION1="0"
+  # fi
+  if [ "$ACTION1" = "0" ] ; then
+    MSG1="<p>You have successfully installed Virtualbox guest additions.</p><p>If you want to use all Virtualbox facilities including free resizing of virtual screen, you need to re-login this session. Please save opened documents and re-login as soon as possible for display server to load fresh VirtualBox guest video drivers.</p><p>Do you want to re-login just now ?</p><p><br></p>"
+  fi
+  if [ "$ACTION1" = "1" ] ; then
+    MSG1="<p>You have successfully installed Virtualbox guest additions.</p><p>If you want to use all Virtualbox facilities including free resizing of virtual screen, you need to reboot your computer. Please save opened documents and reboot as soon as possible for display server to load fresh VirtualBox guest video drivers.</p><p>Do you want to reboot just now ?</p><p><br></p>"
+  fi
+  
+  kdialog --title "Virtualbox guest additions" --caption "" --icon "/opt/program_files/q4os-vboxgutils/share/vboxgutils.png" --yesno "$MSG1"
+  if [ "$?" != "0" ] ; then
+    rm $0
+    exit 0
+  fi
+  
+  # todo: list and logout all logged users
+  if [ "$ACTION1" = "0" ] ; then
+    dcop --all-sessions --all-users ksmserver ksmserver logoutTimed 0 0 3
+  fi
+  if [ "$ACTION1" = "1" ] ; then
+    dcop --all-sessions --all-users ksmserver ksmserver logout 0 1 3
+  fi
+  
+  # dcop ksmserver default logout/logoutTimed parameters:
+  #
+  # Example:
+  # dcop ksmserver default logout 0 -1 -1
+  #
+  # First parameter: confirm
+  # Obey the user's confirmation setting: -1
+  # Don't confirm, shutdown without asking: 0
+  # Always confirm, ask even if the user turned it off: 1
+  #
+  # Second parameter: type
+  # Select previous action or the default if it's the first time: -1
+  # Only log out: 0
+  # Log out and reboot the machine: 1
+  # Log out and halt the machine: 2
+  #
+  # Third parameter: mode
+  # Select previous mode or the default if it's the first time: -1
+  # Schedule a shutdown (halt or reboot) for the time all active sessions have exited: 0
+  # Shut down, if no sessions are active. Otherwise do nothing: 1
+  # Force shutdown. Kill any possibly active sessions: 2
+  # Pop up a dialog asking the user what to do if sessions are still active: 3
+fi
+
+rm $0
+# todo: rm directory too

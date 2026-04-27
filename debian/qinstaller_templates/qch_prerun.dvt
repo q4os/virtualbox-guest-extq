@@ -1,0 +1,77 @@
+#!/bin/sh
+
+MYAPPS_PID="$( pgrep -n appsetup2 )"
+if [ -z "$MYAPPS_PID" ] ; then
+  MYAPPS_PID="$( pgrep -n qsinst )"
+fi
+
+if ! q4hw_info.sh --vboxguest ; then
+  echo "Virtualbox environment not detected."
+  if [ "$APPSETUP2_NONITERACTIVE" != "1" ] ; then
+    kdialog --title "Virtualbox Guest Additions setup" --icon "package_settings" --sorry "<p>Virtualbox environment was not detected !</p><p>Are you really running inside Virtualbox host ? If not so, this setup makes no sense, you should not continue installing Virtualbox Guest Additions.</p>"
+    kdialog --title "Virtualbox Guest Additions setup" --icon "package_settings" --yesno "<p>Do you want to continue installing Virtualbox Guest Additions ?</p>"
+    if [ "$?" != "0" ] ; then
+      kill $MYAPPS_PID
+      exit 20
+    fi
+  fi
+fi
+
+CARCH="$( dpkg --print-architecture )"
+QAPTDISTR_A="$( dash /usr/share/apps/q4os_system/bin/print_qaptdistr.sh )"
+if [ -f "/etc/q4oslivemedia" ] ; then
+  MSGBOX1="<p>Sorry, Virtualbox guest additions automatic setup is not available within the live session environment.</p><p>It's possible to install Virtualbox guest additions manually using guest addidions CD image.</p><p>Exiting setup now ..</p>"
+  VBXAD_UNAVAILABLE="1"
+elif [ -f "/usr/sbin/vbox-uninstall-guest-additions" ] ; then
+  MSGBOX1="<p>Virtualbox guest additions are already installed from the guest additions CD image. Please uninstall it first.</p><p>Exiting setup now ..</p>"
+  VBXAD_UNAVAILABLE="1"
+elif [ "$QAPTDISTR_A" = "bullseye" ] && [ "$CARCH" = "i386" ] ; then
+  MSGBOX1="<p>Click OK to launch an interactive script installing Virtualbox guest additions using guest additions CD image.</p>"
+  RUNSCRIPT1="1"
+  VBXAD_UNAVAILABLE="1"
+elif [ "$QAPTDISTR_A" = "bookworm" ] && [ "$CARCH" = "i386" ] ; then
+  MSGBOX1="<p>Click OK to launch an interactive script installing Virtualbox guest additions using guest additions CD image.</p>"
+  RUNSCRIPT1="1"
+  VBXAD_UNAVAILABLE="1"
+elif [ "$QAPTDISTR_A" = "trixie" ] && [ "$CARCH" = "i386" ] ; then
+  MSGBOX1="<p>Click OK to launch an interactive script installing Virtualbox guest additions using guest additions CD image.</p>"
+  RUNSCRIPT1="1"
+  VBXAD_UNAVAILABLE="1"
+elif [ "$QAPTDISTR_A" != "bullseye" ] && [ "$QAPTDISTR_A" != "bookworm" ] && [ "$QAPTDISTR_A" != "trixie" ] && [ "$QAPTDISTR_A" != "focal" ] && [ "$QAPTDISTR_A" != "jammy" ] && [ "$QAPTDISTR_A" != "noble" ] ; then
+  MSGBOX1="<p>Virtualbox guest additions is not available for this distribution.</p><p>It's possible to install Virtualbox guest additions manually using guest addidions CD image.</p><p>Exiting setup now ..</p>"
+  VBXAD_UNAVAILABLE="1"
+elif [ "$CARCH" != "amd64" ] && [ "$CARCH" != "i386" ] ; then
+  MSGBOX1="<p>Virtualbox guest additions is not available for this CPU architecture.</p><p>Exiting setup now ..</p>"
+  VBXAD_UNAVAILABLE="1"
+fi
+
+if [ -n "$MSGBOX1" ] ; then
+  if [ "$APPSETUP2_NONITERACTIVE" = "1" ] ; then
+    echo "$MSGBOX1"
+  else
+    kdialog --title "Virtualbox Guest Additions setup" --icon "package_settings" --msgbox "$MSGBOX1"
+  fi
+fi
+if [ "$APPSETUP2_NONITERACTIVE" = "1" ] ; then
+  unset RUNSCRIPT1
+fi
+if [ -n "$RUNSCRIPT1" ] ; then
+  if [ "$XDG_SESSION_TYPE" = "wayland" ] ; then
+    konsole --noclose -e /usr/bin/qinst-vboxguest & #omit unknown options for wayland
+  else
+    konsole --noclose --title "Virtualbox Guest Additions setup" --icon "package_settings" -e /usr/bin/qinst-vboxguest &
+  fi
+fi
+if [ "$VBXAD_UNAVAILABLE" = "1" ] ; then
+  kill $MYAPPS_PID
+  exit 10
+fi
+
+# #the most recent version of linux-headers-* and linux-image-*, both needed to compile modules for the corresponding kernel version
+# # LIMAGE1="$( dpkg --get-selections | grep -i "linux-image-" | grep -v "deinstall" | awk -F' ' '{ print $1 }' | tr '\n' ' ' )"
+# # LHDARS1="$( dpkg --get-selections | grep -i "linux-headers-" | grep -v "deinstall" | awk -F' ' '{ print $1 }' | tr '\n' ' ' )"
+# KERNEL_TP="$( dash /usr/share/apps/q4os_system/bin/uname_lxhdrs.sh )"
+# if [ -n "$KERNEL_TP" ] && [ "$KERNEL_TP" != "unknown" ] ; then
+#   sed -i -e "s/[[:space:]]*extra_packages=.*/extra_packages=linux-image-$KERNEL_TP linux-headers-$KERNEL_TP/" config_1_rc
+#   # echo "[Debug1] $( cat config_1_rc )"
+# fi

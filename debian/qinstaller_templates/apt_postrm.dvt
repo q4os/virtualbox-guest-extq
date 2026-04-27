@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+if [ "$1" = "remove" ] ; then
+  set +e
+  echo "Removing repositories and config files..."
+  rm -f /etc/apt/sources.list.d/50_q4vboxadds.list
+  rm -f /etc/modules-load.d/vboxq4.conf
+  set -e
+fi

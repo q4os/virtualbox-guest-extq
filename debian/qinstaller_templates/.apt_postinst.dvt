@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+# rmmod vboxsf vboxvideo vboxguest
+echo "Building module dependencies .."
+depmod -a && true
+
+# echo "Inserting Virtualbox modules .."
+# modprobe vboxsf && true
+# modprobe vboxvideo && true
+# modprobe vboxguest && true
+# echo "Starting Virtualbox services .."
+# service virtualbox-guest-utils force-reload && true
+
+# echo "Runing VDM reset daemon .."
+# dash /opt/program_files/q4os-vboxgutils/daemon/dm_reset_d.sh && true

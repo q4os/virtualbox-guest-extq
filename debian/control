@@ -1,0 +1,17 @@
+Source: q4os-vboxgutils
+Section: none
+Priority: optional
+Maintainer: Q4OS Team <devteam@q4os.org>
+Build-Depends: debhelper (>= 9~), q4os-devpack-base
+Standards-Version: 3.8.4
+
+Package: q4os-vboxgutils
+Architecture: amd64
+Pre-Depends: q4os-desktop (>= 4.0), virtualbox-guest-x11
+Depends:
+Recommends:
+Conflicts: vboxgutils-q4, q4os-vboxgutils-old-modify
+Provides:
+Replaces:
+Breaks:
+Description: VirtualBox guest additions for Q4OS

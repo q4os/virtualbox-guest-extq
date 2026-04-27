@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# this daemon will wait for all users's logoff
+# and restart X to reload xorg.conf and video drivers
+# use dash / posix syntax
+
+unset LC_ALL
+export LANG="C"
+
+if [ "$(id -u)" != "0" ] ; then
+  echo "[VBG] >> Error: Daemon must be run under root ! Exiting ..."
+  exit 0
+fi
+
+if [ "x$1" != "x--" ] ; then
+# todo:
+# after start
+# - check for another daemon instance
+# - daemonize this script - disown or nohup
+# - redirect to syslog
+  LOGDIR=$(mktemp -d --tmpdir=/tmp --suffix=.daemon .xrdmnXXXXXXX)
+  dash $0 -- 1> $LOGDIR/vdm.out.log 2> $LOGDIR/vdm.err.log &
+  exit 0
+fi
+
+echo "[VBG] >> Starting VBoxGutils daemon ..."
+while [ -n "$(w -h -s | grep x-session)" ] ; do
+  sleep 2
+done
+
+echo "Inserting Virtualbox modules .."
+modprobe vboxsf
+modprobe vboxvideo
+modprobe vboxguest
+echo "Starting Virtualbox services .."
+#service virtualbox-guest-utils force-reload
+#systemctl force-reload virtualbox-guest-utils.service
+systemctl restart virtualbox-guest-utils.service
+systemctl restart virtualbox-guest-x11.service
+
+echo "[VBG] >> Restarting tdm service ..."
+systemctl restart tdm.service
+
+echo "[VBG] >> Finishing, exit daemon ..."
