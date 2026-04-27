@@ -18,7 +18,7 @@ case "$1" in
       set +e
 
       QDSTRA="$( dash /usr/share/apps/q4os_system/bin/print_qaptdistr.sh )"
-      if [ "$QDSTRA" = "bullseye" ] || [ "$QDSTRA" = "bookworm" ] || [ "$QDSTRA" = "trixie" ] || [ "$QDSTRA" = "jammy" ] || [ "$QDSTRA" = "noble" ] ; then
+      if [ "$QDSTRA" = "bullseye" ] || [ "$QDSTRA" = "bookworm" ] || [ "$QDSTRA" = "jammy" ] || [ "$QDSTRA" = "noble" ] ; then
         REPOFL1="/etc/apt/sources.list.d/50_q4vboxadds.list"
       else
         rm -f /etc/apt/sources.list.d/50_q4vboxadds.list
