@@ -5,7 +5,7 @@ if [ -z "$MYAPPS_PID" ] ; then
   MYAPPS_PID="$( pgrep -n qsinst )"
 fi
 
-if ! q4hw_info.sh --vboxguest ; then
+if ! q4hw-info --vboxguest ; then
   echo "Virtualbox environment not detected."
   if [ "$APPSETUP2_NONITERACTIVE" != "1" ] ; then
     kdialog --title "Virtualbox Guest Additions setup" --icon "package_settings" --sorry "<p>Virtualbox environment was not detected !</p><p>Are you really running inside Virtualbox host ? If not so, this setup makes no sense, you should not continue installing Virtualbox Guest Additions.</p>"
